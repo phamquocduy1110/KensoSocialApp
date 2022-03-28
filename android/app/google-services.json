@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "635468162339",
+    "project_id": "flutterkensosocialapp",
+    "storage_bucket": "flutterkensosocialapp.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:635468162339:android:678edd0ed9b62f8d809896",
+        "android_client_info": {
+          "package_name": "com.example.kensosocial"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "635468162339-c54clinc4v0pjspg78htesj4rbp9578f.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB7JXzH8SdxQ2_m1-TUx00mEB3ldBZttFo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "635468162339-c54clinc4v0pjspg78htesj4rbp9578f.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

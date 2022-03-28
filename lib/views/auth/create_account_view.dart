@@ -36,7 +36,7 @@ class _CreateAccountViewState extends State<CreateAccountView> {
   Future selectImage({ImageSource imageSource = ImageSource.camera}) async {
     XFile? selectedFile = await _imagePicker.pickImage(source: imageSource);
 
-    File? croppedFile = await myImageCropper(selectedFile!.path);
+    File? croppedFile = File(selectedFile!.path);
 
     setState(() {
       _imageFile = croppedFile;
