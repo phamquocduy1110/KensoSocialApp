@@ -1,11 +1,24 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_storage/firebase_storage.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+
+import '/models/AppUser.dart';
 import '/views/auth/login_view.dart';
 import '/views/chat/chat_view.dart';
 import '/views/favourite/favourite_view.dart';
 import '/views/profile/profile_view.dart';
 import '/views/timeline/timeline_view.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:unicons/unicons.dart';
+
+final Reference storageRef = FirebaseStorage.instance.ref();
+final usersRef = FirebaseFirestore.instance.collection('users');
+final postsRef = FirebaseFirestore.instance.collection('posts');
+final commentsRef = FirebaseFirestore.instance.collection('comments');
+final activityFeedRef = FirebaseFirestore.instance.collection('feed');
+final followersRef = FirebaseFirestore.instance.collection('followers');
+final followingRef = FirebaseFirestore.instance.collection('following');
+final DateTime timestamp = DateTime.now();
 
 class HomeView extends StatefulWidget {
   const HomeView({Key? key}) : super(key: key);
@@ -21,7 +34,7 @@ class _HomeViewState extends State<HomeView> {
      TimelineView(),
     const ChatView(),
     const FavouriteView(),
-    const ProfileView()
+    Profile(),
   ];
 
   @override
