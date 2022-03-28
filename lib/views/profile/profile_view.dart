@@ -1,28 +1,18 @@
-import '/views/auth/login_view.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:unicons/unicons.dart';
+import '/reusable_widgets/header.dart';
 
-class ProfileView extends StatelessWidget {
-  const ProfileView({Key? key}) : super(key: key);
+class Profile extends StatefulWidget {
+  const Profile({Key? key}) : super(key: key);
 
+  @override
+  State<Profile> createState() => _ProfileState();
+}
+
+class _ProfileState extends State<Profile> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        actions: [
-          TextButton.icon(
-              onPressed: () async {
-                await FirebaseAuth.instance.signOut().then((value) =>
-                    Navigator.pushAndRemoveUntil(
-                        context,
-                        MaterialPageRoute(builder: (_) => const LoginView()),
-                        (route) => false));
-              },
-              icon: const Icon(UniconsLine.exit),
-              label: const Text('Logout'))
-        ],
-      ),
+      appBar: header(context, titleText: "Profile"),
     );
   }
 }

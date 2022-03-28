@@ -1,11 +1,25 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_storage/firebase_storage.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+
+import '/models/AppUser.dart';
 import '/views/auth/login_view.dart';
 import '/views/chat/chat_view.dart';
 import '/views/favourite/favourite_view.dart';
 import '/views/profile/profile_view.dart';
 import '/views/timeline/timeline_view.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:unicons/unicons.dart';
+
+final Reference storageRef = FirebaseStorage.instance.ref();
+final usersRef = FirebaseFirestore.instance.collection('users');
+final postsRef = FirebaseFirestore.instance.collection('posts');
+final commentsRef = FirebaseFirestore.instance.collection('comments');
+final activityFeedRef = FirebaseFirestore.instance.collection('feed');
+final followersRef = FirebaseFirestore.instance.collection('followers');
+final followingRef = FirebaseFirestore.instance.collection('following');
+final DateTime timestamp = DateTime.now();
+AppUser currentUser;
 
 class HomeView extends StatefulWidget {
   const HomeView({Key? key}) : super(key: key);
@@ -16,20 +30,24 @@ class HomeView extends StatefulWidget {
 
 class _HomeViewState extends State<HomeView> {
   final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
+  late PageController pageController;
   int _currentIndex = 0;
+
   final List<Widget> _views = [
-     TimelineView(),
+     TimelineView(currentUser: currentUser),
     const ChatView(),
     const FavouriteView(),
-    const ProfileView()
+    Profile(),
   ];
 
   @override
   void initState() {
     isUserAuth();
     super.initState();
+    pageController = PageController();
   }
 
+  /// Check user is authenticated or not
   isUserAuth() {
     _firebaseAuth.authStateChanges().listen((user) {
       if (user == null) {
@@ -39,6 +57,26 @@ class _HomeViewState extends State<HomeView> {
             (route) => false);
       }
     });
+  }
+
+  @override
+  void dispose() {
+    pageController.dispose();
+    super.dispose();
+  }
+
+  onPageChanged(int pageIndex) {
+    setState(() {
+      this._currentIndex = pageIndex;
+    });
+  }
+
+  onTap(int pageIndex) {
+    pageController.animateToPage(
+      pageIndex,
+      duration: Duration(milliseconds: 300),
+      curve: Curves.easeInOut,
+    );
   }
 
   @override
